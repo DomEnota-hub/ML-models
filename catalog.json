@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "status": "inventory-only",
+  "remoteUpdatesAuthorized": false,
+  "applicationSource": {
+    "repository": "DomEnota-hub/ML",
+    "commit": "baa81fdbd8c5ceb36eaa6d285df7f664e037522f"
+  },
+  "models": [
+    {
+      "id": "lama",
+      "title": "LaMa",
+      "distribution": "upstream",
+      "revision": "sha256-pinned",
+      "licenseStatus": "publisher Apache-2.0; exact release size pending",
+      "source": "https://huggingface.co/sapienkit/LaMa-ONNX",
+      "files": [
+        {
+          "name": "lama_fp32.onnx",
+          "sha256": "1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6",
+          "bytes": null,
+          "url": "https://huggingface.co/sapienkit/LaMa-ONNX/resolve/main/lama_fp32.onnx?download=true"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "title": "MobileSAM",
+      "distribution": "upstream",
+      "revision": "0d3b403339b4674a82493d5e97964dd78089ddc8",
+      "licenseStatus": "export publisher MIT; original license attribution required",
+      "source": "https://huggingface.co/Acly/MobileSAM",
+      "files": [
+        {
+          "name": "mobile_sam_image_encoder.onnx",
+          "sha256": "580f5fb648ea1062c0aabc26217aed56921985f03f0cbbd852bba81d760cc749",
+          "bytes": 28157093,
+          "url": "https://huggingface.co/Acly/MobileSAM/resolve/0d3b403339b4674a82493d5e97964dd78089ddc8/mobile_sam_image_encoder.onnx?download=true"
+        },
+        {
+          "name": "sam_mask_decoder_single.onnx",
+          "sha256": "93915fc7c993ab9d59ab8c9ccd3bce37f7509c81ab4150a74abd4d2abbd8570d",
+          "bytes": 16501323,
+          "url": "https://huggingface.co/Acly/MobileSAM/resolve/0d3b403339b4674a82493d5e97964dd78089ddc8/sam_mask_decoder_single.onnx?download=true"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "title": "EfficientDet-Lite0",
+      "distribution": "upstream",
+      "revision": "float32/1",
+      "licenseStatus": "runtime Apache-2.0; model redistribution terms pending",
+      "source": "https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/float32/1/efficientdet_lite0.tflite",
+      "files": [
+        {
+          "name": "efficientdet_lite0.tflite",
+          "sha256": "40338edf5ec70d43e318b0a716a84d4564cd1802759a7a07170c7e43796dbf58",
+          "bytes": 13836895,
+          "url": "https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/float32/1/efficientdet_lite0.tflite"
+        }
+      ]
+    },
+    {
+      "id": "glare",
+      "title": "SRNet",
+      "distribution": "offline",
+      "revision": "6f44a130d2b20568f1a1b1159e32a4ec6b46ef19",
+      "licenseStatus": "MIT; original copyright and full notice required",
+      "source": "https://github.com/zhiyiYo/Specular-Removal",
+      "files": [
+        {
+          "name": "specular_srnet_256.onnx",
+          "sha256": "1538f5800858c329e93576566d40f568fcc07d8fdc674bca454fbfc4771c63e4",
+          "bytes": 230221,
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "title": "DExNet + VGG19",
+      "distribution": "verified-import",
+      "revision": "sha256-pinned",
+      "licenseStatus": "BLOCKED: combined ONNX redistribution rights not established",
+      "source": "https://github.com/jjhuangcs/DExNet",
+      "files": [
+        {
+          "name": "dexnet_vgg19_reflection_128.onnx",
+          "sha256": "0898eefd440b3adfc13b32b49b14c94e1acbf9b5ad5270f4022513b891a90917",
+          "bytes": 91341128,
+          "url": null
+        }
+      ]
+    }
+  ]
+}
