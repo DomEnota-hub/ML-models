@@ -147,6 +147,8 @@ def check_synthetic():
 
 def main():
     import contextlib
+    import gzip
+    import os
     import importlib.util
     import json
     import subprocess
@@ -172,7 +174,14 @@ def main():
         if subprocess.check_output(["git", "-C", str(src), "rev-parse", "HEAD"]).decode().strip() != recipe["architecture"]["revision"]:
             raise RuntimeError("source mismatch")
         dex, vgg = root / "dex.pt", root / "vgg.pth"
-        if not gdown.download(id="1jkhCvyrQAQZtLaxdDWDkkSOF0NZ12aJp", output=str(dex), quiet=True):
+        # Verify the exact direct endpoint intended for Android, without Python gdown.
+        if os.environ.get("ML_DEXNET_EXPORT_TEMPLATE"):
+            with urllib.request.urlopen(recipe["inputs"][0]["androidCandidateUrl"], timeout=90) as response, dex.open("wb") as out:
+                while block := response.read(1024 * 1024):
+                    out.write(block)
+                    if out.tell() > recipe["inputs"][0]["bytes"]:
+                        raise ValueError("DExNet input too large")
+        elif not gdown.download(id="1jkhCvyrQAQZtLaxdDWDkkSOF0NZ12aJp", output=str(dex), quiet=True):
             raise RuntimeError("original DExNet unavailable")
         with urllib.request.urlopen(recipe["inputs"][1]["originalSource"], timeout=90) as response, vgg.open("wb") as out:
             while block := response.read(1024 * 1024):
@@ -264,7 +273,52 @@ def main():
             restored = reconstruct(template, ranges, sources, actual)
             assert restored == real.read_bytes()
             print("BYTE_EXACT_LOCAL_RECONSTRUCTION_PASS", len(ranges), sum(r["length"] for r in ranges), flush=True)
-            print("No model/template/checkpoint/patch artifact published.", flush=True)
+            export_dir = os.environ.get("ML_DEXNET_EXPORT_TEMPLATE")
+            if export_dir:
+                if len(ranges) != 1854 or sum(r["length"] for r in ranges) != 89792924:
+                    raise ValueError("Previously reviewed range inventory changed")
+                # Remove every zeroed learned range completely; only invariant graph bytes remain.
+                skeleton = bytearray()
+                offset = 0
+                for r in ranges:
+                    start = r["outputOffset"]
+                    skeleton.extend(template[offset:start])
+                    offset = start + r["length"]
+                skeleton.extend(template[offset:])
+                if len(skeleton) != len(template) - sum(r["length"] for r in ranges):
+                    raise ValueError("Skeleton length mismatch")
+                compressed = gzip.compress(bytes(skeleton), compresslevel=9, mtime=0)
+                plan_json = {
+                    "schemaVersion": 1, "model": recipe["id"],
+                    "outputBytes": len(template), "outputSha256": actual,
+                    "skeletonBytes": len(skeleton), "skeletonSha256": sha(skeleton),
+                    "compressedBytes": len(compressed), "compressedSha256": sha(compressed),
+                    "sources": [{"id": x["id"], "bytes": x["bytes"], "sha256": x["sha256"]}
+                                for x in recipe["inputs"]],
+                    "ranges": ranges,
+                }
+                # Verify the actual compact skeleton transport as a separate round trip.
+                compact = gzip.decompress(compressed)
+                assembled = bytearray()
+                cursor = output_offset = 0
+                for r in ranges:
+                    gap = r["outputOffset"] - output_offset
+                    assembled.extend(compact[cursor:cursor + gap]); cursor += gap
+                    source = sources[r["source"]]
+                    start = r["sourceOffset"]
+                    assembled.extend(source[start:start + r["length"]])
+                    output_offset = r["outputOffset"] + r["length"]
+                assembled.extend(compact[cursor:])
+                if bytes(assembled) != restored:
+                    raise ValueError("Compact reconstruction differs")
+                dest = Path(export_dir)
+                dest.mkdir(parents=True, exist_ok=False)
+                (dest / "graph.skeleton.gz").write_bytes(compressed)
+                (dest / "ranges.json").write_text(json.dumps(plan_json, separators=(",",":"), sort_keys=True)+"\n")
+                print("AUDITED_COMPACT_TEMPLATE", len(skeleton), len(compressed),
+                      sha(compressed), file_sha(dest / "ranges.json"), flush=True)
+            else:
+                print("No model/template/checkpoint/patch artifact published.", flush=True)
 
 if __name__ == "__main__":
     main()

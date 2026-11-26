@@ -7,7 +7,7 @@ Owner decision 2026-11-26: investigate a local installer which obtains original 
 - recipe-v1.json: original locations, source revision, known digests, export and runtime contract. This is **research metadata**, not an executable installation manifest.
 - No trained DExNet/VGG19 tensors or combined ONNX are stored here.
 - The known-good combined ONNX can still be imported with the existing exact size/SHA-256 check.
-- VGG19 currently has only the official filename hash prefix; obtain and independently record the complete SHA-256 before accepting it in an installer.
+- VGG19 full SHA-256 and 574,673,361-byte original download verified in CI #45804969093. The exact prior ONNX was reconstructed from 1,854 contiguous source ranges. The compact skeleton publication is a separate audited operation; it contains no extracted trained tensor payloads.
 
 ## Implementation target
 

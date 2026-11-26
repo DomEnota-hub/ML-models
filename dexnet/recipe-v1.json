@@ -21,7 +21,9 @@
       "bytes": 118442981,
       "sha256": "b58316c3cb339c0b334b83d5855446d19e5d57c49f88bc3b529b0da54498bcd3",
       "stateKey": "weight",
-      "licenseStatus": "original author checkpoint terms require confirmation"
+      "licenseStatus": "original author checkpoint terms require confirmation",
+      "directDownloadVerified": true,
+      "androidCandidateUrl": "https://drive.usercontent.google.com/download?id=1jkhCvyrQAQZtLaxdDWDkkSOF0NZ12aJp&export=download&confirm=t"
     },
     {
       "id": "vgg19",
@@ -45,7 +47,8 @@
         "https://huggingface.co/molinamarc/syntheva/blob/e98076431c59e6875c29bde7f19cc0c78b01b526/vgg19-dcbb9e9d.pth",
         "https://huggingface.co/ladaapp/lada/blob/3bfd69ffc21518bde80ba6b61696d51efd0a398b/checksums_sha256.txt"
       ],
-      "directDownloadVerified": false
+      "directDownloadVerified": true,
+      "bytes": 574673361
     }
   ],
   "export": {
@@ -82,6 +85,12 @@
       "gdown": "5.2.0",
       "PyWavelets": "1.7.0",
       "Pillow": "11.3.0"
+    },
+    "byteRangeProbe": {
+      "run": 45804969093,
+      "verified": true,
+      "ranges": 1854,
+      "trainedPayloadBytes": 89792924
     }
   },
   "gates": {
