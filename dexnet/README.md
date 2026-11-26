@@ -5,7 +5,7 @@ Owner decision 2026-11-26: investigate a local installer which obtains original 
 ## Repository contents
 
 - recipe-v1.json: original locations, source revision, known digests, export and runtime contract. This is **research metadata**, not an executable installation manifest.
-- No trained DExNet/VGG19 tensors or combined ONNX are stored here.
+- No extracted trained DExNet/VGG19 tensor payloads or combined ONNX are stored here. The compact graph skeleton and offset/hash map are now available under dexnet/v1. They reconstruct the model only with the original checkpoint files.
 - The known-good combined ONNX can still be imported with the existing exact size/SHA-256 check.
 - VGG19 full SHA-256 and 574,673,361-byte original download verified in CI #45804969093. The exact prior ONNX was reconstructed from 1,854 contiguous source ranges. The compact skeleton publication is a separate audited operation; it contains no extracted trained tensor payloads.
 
@@ -17,4 +17,4 @@ Owner decision 2026-11-26: investigate a local installer which obtains original 
 4. Only after validation, connect the existing model manager to a compiled, reviewed local assembler. Catalog data alone must never execute code or approve new weights.
 5. Before external app distribution resolve source/checkpoint/VGG19 conditions and the separate signed model update mechanism.
 
-Current status: recipe published, Android assembler NOT implemented or validated. The existing model import is unchanged.
+Current status: byte-exact local reconstruction proven by CI #45804969093; graph skeleton and range map published in #45805495680. The Android assembler implementation is undergoing app CI #45806169039; no device validation yet. Verified import remains available.

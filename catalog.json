@@ -98,9 +98,13 @@
       ],
       "developmentRecipe": {
         "path": "dexnet/recipe-v1.json",
-        "state": "research-only",
+        "state": "byte-exact-reconstruction-verified",
         "androidInstallerAvailable": false,
-        "distributionOfCombinedWeights": false
+        "androidInstallerStatus": "implementation-ci-pending",
+        "distributionOfCombinedWeights": false,
+        "graphRevision": "4b284dacd842dcaddb746d6e6b3490ac08cb6f49",
+        "mapPath": "dexnet/v1/ranges.json",
+        "graphPath": "dexnet/v1/graph.skeleton.gz"
       }
     }
   ]

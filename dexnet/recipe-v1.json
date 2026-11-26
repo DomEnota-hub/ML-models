@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "dexnet-vgg19-128",
-  "status": "research-only",
+  "status": "byte-exact-reconstruction-verified",
   "purpose": "Personal development; no permission for redistribution is implied",
   "androidInstallerAvailable": false,
   "automaticExecutionAuthorized": false,
@@ -23,7 +23,8 @@
       "stateKey": "weight",
       "licenseStatus": "original author checkpoint terms require confirmation",
       "directDownloadVerified": true,
-      "androidCandidateUrl": "https://drive.usercontent.google.com/download?id=1jkhCvyrQAQZtLaxdDWDkkSOF0NZ12aJp&export=download&confirm=t"
+      "androidCandidateUrl": "https://drive.usercontent.google.com/download?id=1jkhCvyrQAQZtLaxdDWDkkSOF0NZ12aJp&export=download&confirm=t",
+      "androidCandidateUrlVerified": true
     },
     {
       "id": "vgg19",
@@ -101,5 +102,23 @@
     "retainVerifiedImport": true,
     "allowRemoteCodeExecution": false,
     "allowCombinedWeightHosting": false
+  },
+  "androidInstallerStatus": "implementation-ci-pending",
+  "graphRecipe": {
+    "revision": "4b284dacd842dcaddb746d6e6b3490ac08cb6f49",
+    "map": {
+      "path": "dexnet/v1/ranges.json",
+      "bytes": 292641,
+      "sha256": "94facb4a6c5aba78ea8d97125cd726cc66a48f55f3ef09116c4723ad8e1ac20b"
+    },
+    "compressedGraph": {
+      "path": "dexnet/v1/graph.skeleton.gz",
+      "bytes": 97846,
+      "sha256": "08599b24566da57726b5a2f46245489acf2ca5c261271dc43f68ce8f48b4c953"
+    },
+    "skeletonBytes": 1548204,
+    "skeletonSha256": "91f8bd75de65b1dc695131ca27d7ccb4437a095482f5307885df8731edf7ed53",
+    "ranges": 1854,
+    "publicationRun": 45805495680
   }
 }
