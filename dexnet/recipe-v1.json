@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "id": "dexnet-vgg19-128",
+  "status": "research-only",
+  "purpose": "Personal development; no permission for redistribution is implied",
+  "androidInstallerAvailable": false,
+  "automaticExecutionAuthorized": false,
+  "architecture": {
+    "repository": "https://github.com/jjhuangcs/DExNet",
+    "revision": "da949e2291ea758a191fc0c93990767348e6e4ab",
+    "license": "Apache-2.0 (source code; checkpoint terms separately review)",
+    "entry": "DExNet_expand",
+    "inputChannels": 1475,
+    "outputChannels": 3
+  },
+  "inputs": [
+    {
+      "id": "dexnet",
+      "name": "DExNet.pt",
+      "originalSource": "https://drive.google.com/file/d/1jkhCvyrQAQZtLaxdDWDkkSOF0NZ12aJp/view",
+      "bytes": 118442981,
+      "sha256": "b58316c3cb339c0b334b83d5855446d19e5d57c49f88bc3b529b0da54498bcd3",
+      "stateKey": "weight",
+      "licenseStatus": "original author checkpoint terms require confirmation"
+    },
+    {
+      "id": "vgg19",
+      "originalSource": "https://download.pytorch.org/models/vgg19-dcbb9e9d.pth",
+      "identifier": "VGG19_Weights.IMAGENET1K_V1",
+      "sha256": null,
+      "sha256Prefix": "dcbb9e9d",
+      "licenseStatus": "separate pretrained-weight terms require confirmation",
+      "requiredFeatures": {
+        "firstLayers": 30,
+        "taps": [
+          2,
+          7,
+          12,
+          21,
+          30
+        ],
+        "channels": 1472
+      }
+    }
+  ],
+  "export": {
+    "opset": 17,
+    "input": {
+      "name": "image",
+      "shape": [
+        1,
+        3,
+        128,
+        128
+      ],
+      "dtype": "float32"
+    },
+    "outputs": [
+      "transmission",
+      "reflection"
+    ],
+    "filename": "dexnet_vgg19_reflection_128.onnx",
+    "expectedBytes": 91341128,
+    "expectedSha256": "0898eefd440b3adfc13b32b49b14c94e1acbf9b5ad5270f4022513b891a90917",
+    "reference": {
+      "repository": "DomEnota-hub/ML",
+      "revision": "b1ec39a4189dc34e36acca5bfb1af41317c33cfe",
+      "path": "scripts/qa/stage4_dexnet_full_inference_smoke.py"
+    },
+    "toolchain": {
+      "python": "3.11",
+      "torch": "2.4.1+cpu",
+      "torchvision": "0.19.1+cpu",
+      "onnx": "1.17.0",
+      "onnxruntime": "1.20.1",
+      "numpy": "1.26.4",
+      "gdown": "5.2.0",
+      "PyWavelets": "1.7.0",
+      "Pillow": "11.3.0"
+    }
+  },
+  "gates": {
+    "fullVgg19Sha256Required": true,
+    "sourceTermsConfirmed": false,
+    "androidAssemblerValidated": false,
+    "byteExactParityRequired": true,
+    "retainVerifiedImport": true,
+    "allowRemoteCodeExecution": false,
+    "allowCombinedWeightHosting": false
+  }
+}

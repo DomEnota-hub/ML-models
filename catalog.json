@@ -95,7 +95,13 @@
           "bytes": 91341128,
           "url": null
         }
-      ]
+      ],
+      "developmentRecipe": {
+        "path": "dexnet/recipe-v1.json",
+        "state": "research-only",
+        "androidInstallerAvailable": false,
+        "distributionOfCombinedWeights": false
+      }
     }
   ]
 }
