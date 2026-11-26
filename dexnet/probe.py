@@ -21,7 +21,8 @@ def tensors(message, path=()):
     for field, value in message.ListFields():
         if field.type != field.TYPE_MESSAGE:
             continue
-        if field.label == field.LABEL_REPEATED:
+        repeated = field.is_repeated if hasattr(field, 'is_repeated') else field.label == field.LABEL_REPEATED
+        if repeated:
             for i, child in enumerate(value):
                 yield from tensors(child, path + (field.name, i))
         else:
@@ -207,6 +208,22 @@ def main():
                         features.append(F.interpolate(x, size=rgb.shape[2:], mode="bilinear", align_corners=False))
                 transmission, reflection, _, _ = self.network(rgb, torch.cat((rgb, *features), dim=1))
                 return transmission[-1], reflection[-1]
+        import numpy as np
+        from PIL import Image
+        fixtures = [
+            ("pose", "https://storage.googleapis.com/mediapipe-assets/tasks/testdata/vision/pose.jpg?generation=1782185208547605", "c8a830ed683c0276d713dd5aeda28f415f10cd6291972084a40d0d8b934ed62b"),
+            ("burger", "https://storage.googleapis.com/mediapipe-assets/tasks/testdata/vision/burger.jpg?generation=1782184424868164", "97c15bbbf3cf3615063b1031c85d669de55839f59262bbe145d15ca75b36ecbf"),
+        ]
+        pixels = []
+        for name, url, digest in fixtures:
+            with urllib.request.urlopen(url, timeout=90) as response:
+                data = response.read(10_000_001)
+            if len(data) > 10_000_000 or sha(data) != digest:
+                raise ValueError("Fixture identity mismatch")
+            import io
+            with Image.open(io.BytesIO(data)) as image:
+                pixels.append(np.asarray(image.convert("RGB").resize((128,128), Image.Resampling.BILINEAR), dtype=np.float32) / 255.0)
+        input_tensor = torch.from_numpy(np.transpose(np.clip(.85*pixels[0] + .15*pixels[1], 0, 1), (2,0,1))[None].copy())
         def build(trained):
             torch.manual_seed(20261126)
             network = arch(1475, 3)
@@ -218,11 +235,18 @@ def main():
                 state = torch.load(vgg, weights_only=True, map_location="cpu")
                 extractor.load_state_dict(state, strict=True)
                 del state
-            return CompleteModel(extractor.features[:30], network).eval()
+            model = CompleteModel(extractor.features[:30], network).eval()
+            if not trained:
+                # Prevent exporter deduplication of the architecture's many equal zero/one parameters.
+                with torch.no_grad():
+                    for parameter in model.parameters():
+                        if parameter.is_floating_point():
+                            parameter.uniform_(.01, .05)
+            return model
         def export(trained, path):
             model = build(trained)
             with torch.no_grad():
-                torch.onnx.export(model, torch.full((1, 3, 128, 128), .25), str(path),
+                torch.onnx.export(model, input_tensor, str(path),
                     opset_version=17, do_constant_folding=True, input_names=["image"],
                     output_names=["transmission", "reflection"], export_params=True)
             onnx.checker.check_model(str(path))
