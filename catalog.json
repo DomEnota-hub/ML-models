@@ -64,7 +64,7 @@
     {
       "id": "glare",
       "title": "SRNet",
-      "distribution": "offline",
+      "distribution": "upstream-or-offline",
       "revision": "6f44a130d2b20568f1a1b1159e32a4ec6b46ef19",
       "licenseStatus": "MIT; original copyright and full notice required",
       "source": "https://github.com/zhiyiYo/Specular-Removal",
@@ -73,9 +73,12 @@
           "name": "specular_srnet_256.onnx",
           "sha256": "1538f5800858c329e93576566d40f568fcc07d8fdc674bca454fbfc4771c63e4",
           "bytes": 230221,
-          "url": null
+          "url": "https://raw.githubusercontent.com/DomEnota-hub/ML-models/3a09edfdab217e8ea294d69a134a06793cc41658/srnet/1/specular_srnet_256.onnx.b64",
+          "encoding": "base64",
+          "hashAppliesTo": "decoded ONNX"
         }
-      ]
+      ],
+      "notice": "https://github.com/DomEnota-hub/ML-models/blob/3a09edfdab217e8ea294d69a134a06793cc41658/srnet/1/NOTICE.md"
     },
     {
       "id": "reflection",
