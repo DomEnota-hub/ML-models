@@ -12,14 +12,15 @@
       "title": "LaMa",
       "distribution": "upstream",
       "revision": "sha256-pinned",
-      "licenseStatus": "publisher Apache-2.0; exact release size pending",
+      "licenseStatus": "publisher Apache-2.0; exact size corroborated by a mirror of the identical SHA-256",
       "source": "https://huggingface.co/sapienkit/LaMa-ONNX",
       "files": [
         {
           "name": "lama_fp32.onnx",
           "sha256": "1faef5301d78db7dda502fe59966957ec4b79dd64e16f03ed96913c7a4eb68d6",
-          "bytes": null,
-          "url": "https://huggingface.co/sapienkit/LaMa-ONNX/resolve/main/lama_fp32.onnx?download=true"
+          "bytes": 208044816,
+          "url": "https://huggingface.co/sapienkit/LaMa-ONNX/resolve/main/lama_fp32.onnx?download=true",
+          "sizeEvidence": "https://huggingface.co/ravetools/watermark-remover/blob/main/README.md"
         }
       ]
     },
