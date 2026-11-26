@@ -17,4 +17,4 @@ Owner decision 2026-11-26: investigate a local installer which obtains original 
 4. Only after validation, connect the existing model manager to a compiled, reviewed local assembler. Catalog data alone must never execute code or approve new weights.
 5. Before external app distribution resolve source/checkpoint/VGG19 conditions and the separate signed model update mechanism.
 
-Current status: byte-exact local reconstruction proven by CI #45804969093; graph skeleton and range map published in #45805495680. The Android assembler implementation is undergoing app CI #45806169039; no device validation yet. Verified import remains available.
+Current status: byte-exact local reconstruction proven by CI #45804969093; graph skeleton and range map published in #45805495680. Android implementation CI #45806169039 passed 850/850 at 0b67b4873e4ad5e84b84d161d96c3b741c8a5d93; device validation and QA delivery are pending. Verified import remains available.

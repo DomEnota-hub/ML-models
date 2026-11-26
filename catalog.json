@@ -84,7 +84,7 @@
     {
       "id": "reflection",
       "title": "DExNet + VGG19",
-      "distribution": "verified-import",
+      "distribution": "local-assembly-or-import",
       "revision": "sha256-pinned",
       "licenseStatus": "BLOCKED: combined ONNX redistribution rights not established",
       "source": "https://github.com/jjhuangcs/DExNet",
@@ -98,13 +98,14 @@
       ],
       "developmentRecipe": {
         "path": "dexnet/recipe-v1.json",
-        "state": "byte-exact-reconstruction-verified",
+        "state": "android-implementation-ci-verified",
         "androidInstallerAvailable": false,
-        "androidInstallerStatus": "implementation-ci-pending",
+        "androidInstallerStatus": "device-qa-pending; not yet delivered",
         "distributionOfCombinedWeights": false,
         "graphRevision": "4b284dacd842dcaddb746d6e6b3490ac08cb6f49",
         "mapPath": "dexnet/v1/ranges.json",
-        "graphPath": "dexnet/v1/graph.skeleton.gz"
+        "graphPath": "dexnet/v1/graph.skeleton.gz",
+        "androidImplementationCiVerified": true
       }
     }
   ]

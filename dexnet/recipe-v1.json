@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "dexnet-vgg19-128",
-  "status": "byte-exact-reconstruction-verified",
+  "status": "android-implementation-ci-verified",
   "purpose": "Personal development; no permission for redistribution is implied",
   "androidInstallerAvailable": false,
   "automaticExecutionAuthorized": false,
@@ -101,9 +101,10 @@
     "byteExactParityRequired": true,
     "retainVerifiedImport": true,
     "allowRemoteCodeExecution": false,
-    "allowCombinedWeightHosting": false
+    "allowCombinedWeightHosting": false,
+    "androidImplementationCiVerified": true
   },
-  "androidInstallerStatus": "implementation-ci-pending",
+  "androidInstallerStatus": "device-qa-pending; not yet delivered",
   "graphRecipe": {
     "revision": "4b284dacd842dcaddb746d6e6b3490ac08cb6f49",
     "map": {
@@ -120,5 +121,11 @@
     "skeletonSha256": "91f8bd75de65b1dc695131ca27d7ccb4437a095482f5307885df8731edf7ed53",
     "ranges": 1854,
     "publicationRun": 45805495680
+  },
+  "androidApp": {
+    "revision": "0b67b4873e4ad5e84b84d161d96c3b741c8a5d93",
+    "run": 45806169039,
+    "passed": 850,
+    "skipped": 0
   }
 }
